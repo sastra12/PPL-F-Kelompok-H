@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use Hash;
+use DB;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -14,12 +15,17 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
+    public function index(){
+        return view('auth.datapeternak');
+    }
+
+
     public function postregister(Request $request)
     {
         $validation = \Validator::make($request->all(),[
                 'name'=> 'required',
                 'email'=> 'required|email',
-                'password' => 'required|min:6|confirmed',
+                'password' => 'required|min:6',
                 'nik' => 'required|max:16',
                 'alamat' => 'required',
                 'rekening' => 'required',
@@ -36,7 +42,18 @@ class AuthController extends Controller
         //insert ke tabel biouser
         $request->request->add(['id_user'=>$user->id]);
         $biouser = \App\Biouser::create($request->all());
-        // dd($biouser);
+        // dd($user->role_id = $request->input('role_id'));
+        // if($user->role_)
+        $lastvalue = DB::table('users')->latest()->first();
+        
+        if($lastvalue->role_id==2){
+            $credentials = $request->only('email','password');
+            if (Auth::attempt($credentials)) {
+                // Authentication passed...
+                return redirect()->route('tambahdata');
+            }
+        }
+        // dd($lastvalue);
         return redirect()->route('login')->with('success','Data berhasil ditambahkan');
     }
 
@@ -46,11 +63,11 @@ class AuthController extends Controller
 
     public function postlogin(Request $request){
         $user = $request->only('email','password');
-       if(Auth::attempt($user)){
+        if(Auth::attempt($user)){
         // dd($user);
            return redirect('dashboard');
-       }
-       return redirect('/login')->with('message','Password atau Username anda keliru!!');
+        }
+        return redirect('/login')->with('message','Password atau Username anda keliru!!');
     }
 
     public function securitypassword(){

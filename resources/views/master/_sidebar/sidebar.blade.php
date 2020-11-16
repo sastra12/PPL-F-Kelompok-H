@@ -16,8 +16,9 @@
         <li><a href="#" ><i class="far fa-file-alt"></i> <span>Data Laporan Penipuan</span></a></li>
         <li><a href="#" ><i class="far fa-file-alt"></i> <span>Data Investasi</span></a></li>
         @elseif(auth()->user()->role_id==2)
-        <li><a href="#"><i class="fas fa-th-large"></i> <span>Mengelola Data Peternakan</span></a></li>
-        <li><a href="#" ><i class="far fa-file-alt"></i> <span>Mengelola Data Laporan Bulanan</span></a></li>
+        <li><a href="{{route('dashboard')}}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+        <li><a href="{{route('peternakan')}}"><i class="fas fa-th-large"></i> <span>Data Peternakan</span></a></li>
+        <li><a href="#" ><i class="far fa-file-alt"></i> <span>Data Laporan Bulanan</span></a></li>
         @else
         <li><a href="#"><i class="fas fa-columns"></i> <span>Data Investasi</span></a></li>
         <li><a href=""><i class="far fa-square"></i> <span>Data Peternakan</span></a></li>

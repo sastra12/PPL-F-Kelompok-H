@@ -45,4 +45,7 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Biouser','id_user');
     }
+    public function peternakan(){
+        return $this->hasOne('App\Peternakan','id_user');
+    }
 }

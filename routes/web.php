@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 Route::get('/register','AuthController@register');
 Route::post('/postregister','AuthController@postregister');
+
 Route::get('/login','AuthController@login')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
 Route::get('/logout','AuthController@logout')->name('logout');
@@ -27,4 +28,12 @@ Route::group(['middleware'=> ['auth','checkRole:1,2,3']], function(){
     Route::get('/securitypassword','AuthController@securitypassword');
     Route::post('/postnewpassword','AuthController@updatePassword');
     
+});
+
+Route::group(['middleware'=> ['auth','checkRole:2']], function(){
+    // Route::get('/dashboard','DashboardController@index')->name('dashboard');
+    Route::get('/datapeternak','AuthController@index')->name('tambahdata');
+    Route::post('/datapeternakan','PeternakanController@store')->name('datapeternakan');
+    Route::get('/peternakan','PeternakanController@index')->name('peternakan');
+    Route::post('/updatepeternakan/{id}','PeternakanController@update')->name('updatepeternakan');
 });

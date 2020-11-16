@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Register &mdash; Stisla</title>
+  <title>Data Peternak &mdash; Stisla</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -30,30 +30,30 @@
             <div class="card card-primary">
               <div class="card-header"><h4>Register</h4></div>
               <div class="card-body">
-                <form method="POST" action="/postregister">
+                <form method="POST" action="{{route('datapeternakan')}}" enctype="multipart/form-data">
                   @csrf
                   <div class="row">
                     <div class="form-group col-12">
-                      <label for="first_name">Nama Lengkap</label>
-                      <input value="{{old('name')}}" id="first_name" type="text" class="form-control  {{$errors->first('name') ? "is-invalid" : ""}}" name="name" autofocus autocomplete="off">  
+                      <label for="first_name">Nama Peternakan</label>
+                      <input value="{{old('name')}}" id="first_name" type="text" class="form-control  {{$errors->first('name') ? "is-invalid" : ""}}" name="nama" autofocus autocomplete="off">  
                       <div class="invalid-feedback">
                         {{$errors->first('name')}}
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="email">Email</label>
-                    <input value="{{old('email')}}" id="email" type="email" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" name="email" autocomplete="off">
+                    <label for="email">Alamat Peternakan</label>
+                    <input value="{{old('alamat')}}" id="alamat" type="text" class="form-control {{$errors->first('alamat') ? "is-invalid" : ""}}" name="alamat" autocomplete="off">
                     <div class="invalid-feedback">
-                      {{$errors->first('email')}}
+                      {{$errors->first('alamat')}}
                     </div>
                   </div>
                   <div class="row">
                     <div class="form-group col-12">
-                      <label for="password" class="d-block">Password</label>
-                      <input value="{{old('password')}}" id="password" type="password" class="form-control pwstrength {{$errors->first('password') ? "is-invalid" : ""}}" data-indicator="pwindicator" name="password">
+                      <label for="password" class="d-block">Jumlah Kambing Dewasa</label>
+                      <input value="{{old('jmlkambingdewasa')}}"  class="form-control pwstrength {{$errors->first('jmlkambingdewasa') ? "is-invalid" : ""}}" name="jmlkambingdewasa">
                       <div class="invalid-feedback">
-                        {{$errors->first('password')}}
+                        {{$errors->first('jmlkambingdewasa')}}
                       </div>
                     </div>
                     {{-- <div class="form-group col-12">
@@ -63,23 +63,23 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-12">
-                      <label for="first_name">Nomor Induk Kependudukan</label>
-                      <input value="{{old('nik')}}" id="first_name" type="text" class="form-control {{$errors->first('nik') ? "is-invalid" : ""}}" name="nik" autofocus autocomplete="off">
+                      <label for="first_name">Jumlah Kambing Anakan</label>
+                      <input value="{{old('jmlkambinganakan')}}" id="first_name" type="text" class="form-control {{$errors->first('jmlkambinganakan') ? "is-invalid" : ""}}" name="jmlkambinganakan" autofocus autocomplete="off">
                       <div class="invalid-feedback">
-                        {{$errors->first('nik')}}
+                        {{$errors->first('jmlkambinganakan')}}
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="form-group col-12">
-                      <label for="first_name">Alamat</label>
-                      <input value="{{old('alamat')}}" id="first_name" type="text" class="form-control {{$errors->first('alamat') ? "is-invalid" : ""}}" name="alamat" autofocus autocomplete="off">
-                      <div class="invalid-feedback">
-                        {{$errors->first('alamat')}}
-                      </div>
+                        <label for="first_name">Avatar</label>
+                        <input type="file" class="form-control @error('avatar') is-invalid @enderror" autocomplete="off" name="avatar">
+                        @error('avatar')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                   </div>
-                  <div class="row">
+                  {{-- <div class="row">
                     <div class="form-group col-12">
                       <label for="first_name">Rekening</label>
                       <input value="{{old('rekening')}}" id="first_name" type="text" class="form-control {{$errors->first('rekening') ? "is-invalid" : ""}}" name="rekening" autofocus autocomplete="off">
@@ -87,8 +87,8 @@
                         {{$errors->first('rekening')}}
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
+                  </div> --}}
+                  {{-- <div class="row">
                     <div class="form-group col-12">
                       <label for="first_name">No Telepon</label>
                       <input value="{{old('notelepon')}}" id="first_name" type="text" class="form-control {{$errors->first('notelepon') ? "is-invalid" : ""}}" name="notelepon" autofocus autocomplete="off">
@@ -96,8 +96,8 @@
                         {{$errors->first('notelepon')}}
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
+                  </div> --}}
+                  {{-- <div class="row">
                     <div class="form-group col-12">
                       <label>Role Pilihan</label>
                       <select class="form-control selectric" name="role_id">
@@ -105,7 +105,7 @@
                         <option value="3">Investor</option>
                       </select>
                     </div>
-                  </div>
+                  </div> --}}
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" name="agree" class="custom-control-input" id="agree">
