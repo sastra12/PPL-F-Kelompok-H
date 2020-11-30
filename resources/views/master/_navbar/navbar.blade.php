@@ -140,12 +140,15 @@
         <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
         <div class="d-sm-none d-lg-inline-block">{{auth()->user()->name}}</div></a>
         <div class="dropdown-menu dropdown-menu-right">
+          @if(auth()->user()->role_id==1)
+          <a href="/adminprofile" class="dropdown-item has-icon">
+            <i class="far fa-user"></i> Profile
+          </a>
+          @elseif(auth()->user()->role_id!=1)
           <a href="/profile" class="dropdown-item has-icon">
             <i class="far fa-user"></i> Profile
           </a>
-          <a href="features-activities.html" class="dropdown-item has-icon">
-            <i class="fas fa-bolt"></i> Activities
-          </a>
+          @endif
           <a href="/securitypassword" class="dropdown-item has-icon">
             <i class="fas fa-cog"></i> Security Password
           </a>

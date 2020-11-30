@@ -73,7 +73,7 @@
                   <div class="row">
                     <div class="form-group col-12">
                         <label for="first_name">Avatar</label>
-                        <input type="file" class="form-control @error('avatar') is-invalid @enderror" autocomplete="off" name="avatar">
+                        <input type="file" class="form-control @error('avatar') is-invalid @enderror" autocomplete="off" name="avatar[]" multiple>
                         @error('avatar')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

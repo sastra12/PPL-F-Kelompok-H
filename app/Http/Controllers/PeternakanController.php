@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use \App\Peternakan;
 use \App\User;
 use Auth;
+use DB;
+use \App\Pengajuaninvestasi;
 use Storage;
 use Illuminate\Http\Request;
 
@@ -28,9 +30,69 @@ class PeternakanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function buatinvestasi(Request $request)
     {
-        //
+        // dd($request->all());
+        $current_user = auth()->user()->id;
+        $peternakan = Peternakan::select('id')->where('id_user',$current_user)->first();
+
+        // $idpeternak = Peternakan::select('id_user')->where('id',$current_user)->first();
+
+        // dd($current_user);
+        $data = new pengajuaninvestasi;
+        // $request->requets->add(['id_peternakan'=>1]);
+        $data->id_peternakan = $peternakan->id;
+        // dd($data);
+        $data->nominal = $request->input('nominal');
+        $data->id_peternak = $current_user;
+        $data->saratperjanjian = $request->input('sarat');
+        $data->status = 0;
+        $data->save();
+        return redirect()->route('dashboard');
+        
+    }
+
+
+    
+    public function pengajuaninvestasi(){
+        
+        return view('dashboard.peternak.investasi');
+    }
+
+    public function laporan()
+    {   
+        $user = auth()->user()->id;
+        // $data = DB::table('prosesinvestasi')
+        // ->join('pengajuaninvestasi','prosesinvestasi.id_pengajuan','=','pengajuaninvestasi.id')
+        // ->join('peternakan','peternakan.id','=','pengajuaninvestasi.id_peternakan')
+        // ->join('users','users.id','=','peternakan.id_user')
+        // ->where('prosesinvestasi.id_peternak',$user)
+        // ->where('users.id','=','prosesinvestasi.id_investor')
+        // ->where('pengajuaninvestasi.status',1)
+        // ->select('users.name','prosesinvestasi.created_at','prosesinvestasi.id_pengajuan')
+        // ->get();
+        $investor = DB::table('users')
+        ->join('prosesinvestasi','prosesinvestasi.id_investor','=','users.id')
+        ->join('pengajuaninvestasi','pengajuaninvestasi.id','=','prosesinvestasi.id_pengajuan')
+        ->where('prosesinvestasi.id_peternak',$user)
+        ->select('users.name','pengajuaninvestasi.created_at','prosesinvestasi.id_pengajuan')
+        ->get();
+        // dd($investor);
+        return view('dashboard.peternak.laporan',compact('investor'));
+    }
+
+    public function datalaporanbulanan($id){
+        $data = DB::table('biouser')
+        ->join('users','users.id','=','biouser.id_user')
+        // ->join('peternakan','peternakan.id_user','=','users.id')
+        ->join('prosesinvestasi','prosesinvestasi.id_investor','=','users.id')
+        ->join('pengajuaninvestasi','prosesinvestasi.id_pengajuan','=','pengajuaninvestasi.id')
+        ->where('prosesinvestasi.id_pengajuan',$id)
+        // ->where('users.id','=','prosesinvestasi.id_investor')
+        ->select('users.name','biouser.alamat','biouser.notelepon','prosesinvestasi.bukti')
+        ->get();
+        // dd($data);
+        return view('dashboard.peternak.datalaporan',compact('data'));
     }
 
     /**
@@ -48,7 +110,8 @@ class PeternakanController extends Controller
             'alamat'=> 'required|min:5',
             'jmlkambingdewasa' => 'integer|min:2',
             'jmlkambinganakan' => 'integer|min:2',
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => 'required',
+            'avatar.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
     ])->validate();
     //  dd($request->all());
         try {
@@ -64,24 +127,34 @@ class PeternakanController extends Controller
             $peternakan = new \App\Peternakan;
             // $request->request->add(['id_user'=> $current_user]);
             // dd($request);
-            $peternakan->id_user = Auth::user()->id;
-            // dd($peternakan);
-            $peternakan->namapeternakan = $request->input('nama');
-            $peternakan->alamatpeternakan = $request->input('alamat');
-            $peternakan->jmlkambingdewasa = $request->input('jmlkambingdewasa');
-            $peternakan->jmlkambinganakan = $request->input('jmlkambinganakan');
-            // dd($request->all());
-            // if($request->file('avatar')){
-            //     $path = $request->file('avatar')->store('avatars', $request->file('avatar')->getClientOriginalName());
-            //     $peternakan->namagambar = $request->file('avatar')->getClientOriginalName();
-            // }
-            if($request->hasFile('avatar')){
-                $path = $request->file('avatar')->move('avatars/',$request->file('avatar')->getClientOriginalName());
-                $peternakan->namagambar = $request->file('avatar')->getClientOriginalName();
-                $peternakan->save();
+            // $peternakan->id_user = Auth::user()->id;
+
+            // $peternakan->namapeternakan = $request->input('nama');
+            // $peternakan->alamatpeternakan = $request->input('alamat');
+            // $peternakan->jmlkambingdewasa = $request->input('jmlkambingdewasa');
+            // $peternakan->jmlkambinganakan = $request->input('jmlkambinganakan');
+            $input = $request->all();
+            $images = array();
+            if($files=$request->file('avatar')){
+                foreach ($files as $file) {
+                    $name = $file->getClientOriginalName();
+                    $file->move('avatars/',$name);
+                    $images[]=$name;
+                }
+                // $path = $request->file('avatar')->move('avatars/',$request->file('avatar')->getClientOriginalName());
+                // $peternakan->namagambar = $request->file('avatar')->getClientOriginalName();
+                // $peternakan->save();
             }
+            Peternakan::insert([
+                'id_user' => Auth::user()->id,
+                'namapeternakan'=> $input['nama'],
+                'alamatpeternakan' => $input['alamat'],
+                'jmlkambingdewasa' =>$input['jmlkambingdewasa'],
+                'jmlkambinganakan' => $input['jmlkambinganakan'],
+                'namagambar' => implode("|",$images),
+            ]);
             // dd($request->all());
-            $peternakan->save();
+            // $peternakan->save();
             return redirect('/dashboard');
             // return view('dashboard.peternakan.peternakan');
             // dd($peternakan);

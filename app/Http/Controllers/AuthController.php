@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Hash;
 use DB;
+use \Crypt;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -25,11 +26,11 @@ class AuthController extends Controller
         $validation = \Validator::make($request->all(),[
                 'name'=> 'required',
                 'email'=> 'required|email',
-                'password' => 'required|min:6',
+                'password' => 'required|min:8|max:16',
                 'nik' => 'required|max:16',
                 'alamat' => 'required',
-                'rekening' => 'required',
-                'notelepon' => 'required|max:12',
+                'rekening' => 'required|max:16',
+                'notelepon' => 'required|max:15',
                 'role_id' => 'required',
         ])->validate();
         $user = new \App\User;
@@ -45,7 +46,7 @@ class AuthController extends Controller
         // dd($user->role_id = $request->input('role_id'));
         // if($user->role_)
         $lastvalue = DB::table('users')->latest()->first();
-        
+
         if($lastvalue->role_id==2){
             $credentials = $request->only('email','password');
             if (Auth::attempt($credentials)) {
@@ -71,6 +72,7 @@ class AuthController extends Controller
     }
 
     public function securitypassword(){
+      
         return view('auth.securitypassword');
     }
 

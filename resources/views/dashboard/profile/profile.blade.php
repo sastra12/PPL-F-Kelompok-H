@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="section-body">
-      <h2 class="section-title">{{$profile->name}}</h2>
+      {{-- <h2 class="section-title">{{$profile->name}}</h2> --}}
       <p class="section-lead">
         Change information about yourself on this page.
       </p>
@@ -64,8 +64,44 @@
         </div>
         <div class="col-12 col-md-12 col-lg-7">
           <div class="card">
+            {{-- @foreach ($profileadmin as $item) --}}
+            @if(auth()->user()->role_id==1)
+            <form method="post" class="needs-validation" novalidate="" action="{{route('editprofiladmin',['id'=>$data['id']])}}">
+              @csrf
+              <div class="card-header">
+                <h4>Edit Profile</h4>
+              </div>
+              <div class="card-body">
+                {{-- @foreach ($profileadmin as $item) --}}
+                <div class="row">
+                  <div class="form-group col-md-6 col-12">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="form-control" value="{{$data['name']}}" required="" name="nama" autocomplete="off">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6 col-12">
+                    <label>Email</label>
+                    <input type="text" class="form-control" value="{{$data['email']}}" required="" name="email" autocomplete="off">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6 col-12">
+                    <label>No Telepon</label>
+                    <input type="text" class="form-control" value="{{$data['notelepon']}}" required="" name="notelepon" autocomplete="off">
+                  </div>
+                </div>
+                {{-- @endforeach --}}
+                <div class="card-footer text-left">
+                  <button class="btn btn-primary">Save Changes</button>
+                </div>
+              </div>
+            </form>
+            @endif
+            
+            @if(auth()->user()->role_id != 1)
             <form method="post" class="needs-validation" novalidate="" action="/profile/{{$profile->id}}">
-                @csrf
+              @csrf
               <div class="card-header">
                 <h4>Edit Profile</h4>
               </div>
@@ -106,6 +142,7 @@
                   </div>
               </div>
             </form>
+            @endif
           </div>
         </div>
       </div>

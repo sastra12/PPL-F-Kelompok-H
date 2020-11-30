@@ -12,4 +12,8 @@ class Peternakan extends Model
     public function users(){
         return $this->belongsTo('App\User');
     }
+
+    public function pengajuaninvestasi(){
+        return $this->hasOne('App\Pengajuaninvestasi','id_peternakan');
+    }
 }
