@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>@yield('title') &mdash; Stisla</title>
+  <title>@yield('title')</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -31,14 +31,14 @@
           </div>
         </section>
       </div>
-      <footer class="main-footer">
+      <!-- <footer class="main-footer">
         <div class="footer-left">
           Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
         </div>
         <div class="footer-right">
           2.3.0
         </div>
-      </footer>
+      </footer> -->
     </div>
   </div>
 
