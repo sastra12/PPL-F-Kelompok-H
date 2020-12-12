@@ -41,7 +41,7 @@
           2.3.0
         </div>
       </footer> -->
-        </div> -->
+        </div>
       </footer>
     </div>
   </div>
