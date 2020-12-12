@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< Updated upstream
 use \App\Pengajuaninvestasi;
-=======
-
->>>>>>> Stashed changes
 class LaporanController extends Controller
 {
     /**
@@ -17,7 +13,6 @@ class LaporanController extends Controller
      */
     public function index()
     {
-<<<<<<< Updated upstream
         $user = auth()->user()->id;
         if (Pengajuaninvestasi::where('id_peternak', '=', $user)->exists()) {
             $kondisi = 1;
@@ -26,9 +21,6 @@ class LaporanController extends Controller
              $kondisi=0;
          }
         return view('dashboard.peternak.formlaporan', compact('kondisi'));
-=======
-        //
->>>>>>> Stashed changes
     }
 
     /**
@@ -49,7 +41,9 @@ class LaporanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(),[
+            
+        ])->validate();
     }
 
     /**
