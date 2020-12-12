@@ -39,7 +39,11 @@
                   @csrf
                   <div class="form-group">
                     <label for="email">Email</label>
+<<<<<<< Updated upstream
                     <input id="email" type="email" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" name="email" tabindex="1" required autofocus>
+=======
+                    <input id="email" type="email" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" name="email" tabindex="1" required autofocus >
+>>>>>>> Stashed changes
                   </div>
                   <div class="form-group">
                     <div class="d-block">
@@ -88,9 +92,15 @@
             <div class="mt-5 text-muted text-center">
               Don't have an account? <a href="/register">Create One</a>
             </div>
+<<<<<<< Updated upstream
             <div class="simple-footer">
               <!-- Copyright &copy; Stisla 2018 -->
             </div>
+=======
+            <!-- {{-- <div class="simple-footer">
+              Copyright &copy; Stisla 2018
+            </div> --}} -->
+>>>>>>> Stashed changes
           </div>
         </div>
       </div>

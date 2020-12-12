@@ -31,14 +31,24 @@
           </div>
         </section>
       </div>
+<<<<<<< Updated upstream
       <!-- <footer class="main-footer">
         <div class="footer-left">
+=======
+      <footer class="main-footer">
+        <!-- {{-- <div class="footer-left">
+>>>>>>> Stashed changes
           Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
         </div>
         <div class="footer-right">
           2.3.0
+<<<<<<< Updated upstream
         </div>
       </footer> -->
+=======
+        </div> -->
+      </footer>
+>>>>>>> Stashed changes
     </div>
   </div>
 

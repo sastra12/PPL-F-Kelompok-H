@@ -36,4 +36,14 @@ Route::group(['middleware'=> ['auth','checkRole:2']], function(){
     Route::post('/datapeternakan','PeternakanController@store')->name('datapeternakan');
     Route::get('/peternakan','PeternakanController@index')->name('peternakan');
     Route::post('/updatepeternakan/{id}','PeternakanController@update')->name('updatepeternakan');
+<<<<<<< Updated upstream
+=======
+    Route::get('/pengajuaninvestasi','PeternakanController@pengajuaninvestasi')->name('pengajuaninvestasi');
+    Route::post('/investasi','PeternakanController@buatinvestasi')->name('investasi');
+    Route::get('/check','PeternakanController@check')->name('check');
+    Route::get('/laporanbulanan','PeternakanController@laporan')->name('laporanbulanan');
+    Route::get('/datalaporanbulanan/{id}','PeternakanController@datalaporanbulanan')->name('datalaporanbulanan');
+    Route::get('/formlaporan', 'LaporanController@index')->name('formlaporan');
+    Route::post('/formlaporan', 'LaporanController@store')->name('postform');
+>>>>>>> Stashed changes
 });

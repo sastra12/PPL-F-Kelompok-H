@@ -26,7 +26,7 @@
           <div class="card profile-widget">
             <div class="profile-widget-header">
               <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
-              <div class="profile-widget-items">
+              <!-- <div class="profile-widget-items">
                 <div class="profile-widget-item">
                   <div class="profile-widget-item-label">Posts</div>
                   <div class="profile-widget-item-value">187</div>
@@ -39,13 +39,20 @@
                   <div class="profile-widget-item-label">Following</div>
                   <div class="profile-widget-item-value">2,1K</div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="profile-widget-description">
+<<<<<<< Updated upstream
               <div class="profile-widget-name">{{auth()->user()->name}}<div class="text-muted d-inline font-weight-normal"><div class="slash"></div> {{auth()->user()->role_id}}</div></div>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis ab velit quia sit placeat saepe corrupti aliquid architecto iure deleniti explicabo provident exercitationem corporis temporibus commodi dignissimos, nihil accusantium nam.
               Voluptatum fugit eveniet et soluta exercitationem recusandae. Qui voluptatum officiis quaerat natus libero odit sapiente, vel dolore sunt tenetur, sed hic quibusdam cupiditate autem fugiat eum! Magni ratione rem vero!
               Placeat nemo asperiores, nobis eos quaerat amet praesentium saepe fuga sapiente doloremque exercitationem, esse ea neque aliquam pariatur iusto velit! Culpa labore dolorem impedit eum quos non dolor corrupti quia?.
+=======
+              <div class="profile-widget-name">{{auth()->user()->name}}<div class="text-muted d-inline font-weight-normal"><div class="slash"></div>{{auth()->user()->role_id}}</div></div>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati ratione praesentium voluptas, maiores, enim assumenda, magnam sint placeat omnis iste rem! Nam doloremque fugiat eligendi non vitae inventore magni alias.
+              Nisi repudiandae minus omnis corrupti excepturi sequi, reprehenderit totam delectus necessitatibus repellendus veritatis voluptates, ratione fugiat, ducimus harum unde explicabo esse modi suscipit architecto. Facere cumque officiis quam asperiores cum.
+              Dignissimos cum alias repellendus? Reprehenderit facere doloremque perspiciatis suscipit esse eos recusandae odit excepturi, vel optio eveniet sapiente vero neque at culpa soluta, libero eligendi non ducimus, nesciunt quaerat rem.
+>>>>>>> Stashed changes
             </div>
             <!-- <div class="card-footer text-center">
               <div class="font-weight-bold mb-2">Follow {{auth()->user()->name}} On</div>
