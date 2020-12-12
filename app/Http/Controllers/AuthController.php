@@ -5,6 +5,7 @@ use Auth;
 use Hash;
 use DB;
 use \Crypt;
+use \App\Pengajuaninvestasi;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -63,17 +64,31 @@ class AuthController extends Controller
     }
 
     public function postlogin(Request $request){
+        $validation = \Validator::make($request->all(),[
+            'email'=> 'required|email|max:25',
+            'password' => 'required|min:8|max:16',
+        ],
+        [
+            'email.required' => 'Data tidak boleh kosong,harap di isi',
+            'password.required' => 'Data tidak boleh kosong, harap di isi'
+        ])->validate();
         $user = $request->only('email','password');
         if(Auth::attempt($user)){
         // dd($user);
            return redirect('dashboard');
         }
-        return redirect('/login')->with('message','Password atau Username anda keliru!!');
+        return redirect('/login')->with('message','Data yang anda masukan salah!!');
     }
 
     public function securitypassword(){
-      
-        return view('auth.securitypassword');
+        $user = auth()->user()->id;
+        if (Pengajuaninvestasi::where('id_peternak', '=', $user)->exists()) {
+            $kondisi = 1;
+         }
+         else{
+             $kondisi=0;
+         }
+        return view('auth.securitypassword',compact('kondisi'));
     }
 
     public function updatepassword(Request $request)

@@ -70,6 +70,18 @@ class InvestorController extends Controller
         return redirect()->route('datainvestasi');
     }
 
+    public function laporan(){
+        $user = auth()->user()->id;
+        $peternak = DB::table('users')
+        ->join('prosesinvestasi','prosesinvestasi.id_peternak','=','users.id')
+        ->join('pengajuaninvestasi','pengajuaninvestasi.id','=','prosesinvestasi.id_pengajuan')
+        ->where('prosesinvestasi.id_investor',$user)
+        ->select('users.name','pengajuaninvestasi.created_at','prosesinvestasi.id_pengajuan')
+        ->get();
+        return view('dashboard.investor.laporan',compact('peternak'));
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

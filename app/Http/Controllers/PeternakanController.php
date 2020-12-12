@@ -22,7 +22,13 @@ class PeternakanController extends Controller
         $user = Auth::user()->id;
         $data = \App\Peternakan::where('id_user',$user)->first();
         // dd($data);
-        return view('dashboard.peternak.peternakan',compact('data'));
+        if (Pengajuaninvestasi::where('id_peternak', '=', $user)->exists()) {
+            $kondisi = 1;
+         }
+         else{
+             $kondisi=0;
+         }
+        return view('dashboard.peternak.peternakan',compact('data','kondisi'));
     }
 
     /**
@@ -55,8 +61,14 @@ class PeternakanController extends Controller
 
     
     public function pengajuaninvestasi(){
-        
-        return view('dashboard.peternak.investasi');
+        $user = auth()->user()->id;
+        if (Pengajuaninvestasi::where('id_peternak', '=', $user)->exists()) {
+            $kondisi = 1;
+         }
+         else{
+             $kondisi=0;
+         }
+        return view('dashboard.peternak.investasi',compact('kondisi'));
     }
 
     public function laporan()
@@ -71,6 +83,13 @@ class PeternakanController extends Controller
         // ->where('pengajuaninvestasi.status',1)
         // ->select('users.name','prosesinvestasi.created_at','prosesinvestasi.id_pengajuan')
         // ->get();
+     
+        if (Pengajuaninvestasi::where('id_peternak', '=', $user)->exists()) {
+            $kondisi = 1;
+         }
+         else{
+             $kondisi=0;
+         }
         $investor = DB::table('users')
         ->join('prosesinvestasi','prosesinvestasi.id_investor','=','users.id')
         ->join('pengajuaninvestasi','pengajuaninvestasi.id','=','prosesinvestasi.id_pengajuan')
@@ -78,10 +97,17 @@ class PeternakanController extends Controller
         ->select('users.name','pengajuaninvestasi.created_at','prosesinvestasi.id_pengajuan')
         ->get();
         // dd($investor);
-        return view('dashboard.peternak.laporan',compact('investor'));
+        return view('dashboard.peternak.laporan',compact('investor','kondisi'));
     }
 
     public function datalaporanbulanan($id){
+        $user = auth()->user()->id;
+        if (Pengajuaninvestasi::where('id_peternak', '=', $user)->exists()) {
+            $kondisi = 1;
+         }
+         else{
+             $kondisi=0;
+         }
         $data = DB::table('biouser')
         ->join('users','users.id','=','biouser.id_user')
         // ->join('peternakan','peternakan.id_user','=','users.id')
@@ -92,7 +118,7 @@ class PeternakanController extends Controller
         ->select('users.name','biouser.alamat','biouser.notelepon','prosesinvestasi.bukti')
         ->get();
         // dd($data);
-        return view('dashboard.peternak.datalaporan',compact('data'));
+        return view('dashboard.peternak.datalaporan',compact('data','kondisi'));
     }
 
     /**

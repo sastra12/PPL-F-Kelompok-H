@@ -41,6 +41,8 @@ Route::group(['middleware'=>['auth','checkRole:3']],function(){
     Route::get('/datainvestasi','InvestorController@index')->name('datainvestasi');
     Route::get('/profilpeternak/{id}','InvestorController@profilpeternak')->name('profilpeternak');
     Route::post('/penerimaaninvestasi/{id}','InvestorController@penerimaaninvestasi')->name('penerimaaninvestasi');
+    Route::get('/laporan','InvestorController@laporan')->name('laporan');
+    Route::post('/datalaporanbulanan/{id}','InvestorController@datalaporan')->name('datalaporan');
 });
 
 Route::group(['middleware'=> ['auth','checkRole:2']], function(){

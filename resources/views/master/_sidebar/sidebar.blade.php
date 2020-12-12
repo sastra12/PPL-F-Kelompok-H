@@ -22,12 +22,16 @@
         @elseif(auth()->user()->role_id==2)
         <li><a href="{{route('dashboard')}}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
         <li><a href="{{route('peternakan')}}"><i class="fas fa-th-large"></i> <span>Data Peternakan</span></a></li>
+        @if($kondisi==0)
         <li><a href="{{route('pengajuaninvestasi')}}" ><i class="fas fa-th"></i> <span>Pengajuan Investasi</span></a></li>
+        @elseif($kondisi==1)
+        <li><a href="{{route('pengajuaninvestasi')}}" ><i class="fas fa-th"></i> <span>Update Investasi</span></a></li>
+        @endif
         <li><a href="{{route('laporanbulanan')}}" ><i class="far fa-file-alt"></i> <span>Data Laporan Bulanan</span></a></li>
         @else
         <li><a href="{{route('datainvestasi')}}"><i class="fas fa-columns"></i> <span>Data Investasi</span></a></li>
         <li><a href="#"><i class="fas fa-th"></i> <span>Laporan Penipuan</span></a></li>
-        <li><a href="#"><i class="fas fa-th-large"></i> <span>Laporan Bulanan</span></a></li>
+        <li><a href="{{route('laporan')}}"><i class="fas fa-th-large"></i> <span>Laporan Bulanan</span></a></li>
         @endif
     </aside>
   </div>

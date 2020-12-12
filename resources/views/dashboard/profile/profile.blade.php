@@ -42,10 +42,10 @@
               </div>
             </div>
             <div class="profile-widget-description">
-              <div class="profile-widget-name">Ujang Maman <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> Web Developer</div></div>
+              <div class="profile-widget-name">Lorem Ipsum<div class="text-muted d-inline font-weight-normal"><div class="slash"></div>Lorem Ipsum</div></div>
               Ujang maman is a superhero name in <b>Indonesia</b>, especially in my family. He is not a fictional character but an original hero in my family, a hero for his children and for his wife. So, I use the name as a user in this template. Not a tribute, I'm just bored with <b>'John Doe'</b>.
             </div>
-            <div class="card-footer text-center">
+            {{-- <div class="card-footer text-center">
               <div class="font-weight-bold mb-2">Follow Ujang On</div>
               <a href="#" class="btn btn-social-icon btn-facebook mr-1">
                 <i class="fab fa-facebook-f"></i>
@@ -59,7 +59,7 @@
               <a href="#" class="btn btn-social-icon btn-instagram">
                 <i class="fab fa-instagram"></i>
               </a>
-            </div>
+            </div> --}}
           </div>
         </div>
         <div class="col-12 col-md-12 col-lg-7">

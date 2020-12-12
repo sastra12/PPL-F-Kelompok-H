@@ -5,15 +5,23 @@ use Auth;
 use DB;
 use Illuminate\Http\Request;
 use App\User;
+use App\Pengajuaninvestasi;
 use App\Biouser;
 class ProfileController extends Controller
 {
     //
     public function profile(){
+      $user = auth()->user()->id;
+      if (Pengajuaninvestasi::where('id_peternak', '=', $user)->exists()) {
+          $kondisi = 1;
+       }
+       else{
+           $kondisi=0;
+       }
       $profile = Auth::user();
       $profile->load('biouser');
       // dd($profile);
-      return view('dashboard.profile.profile',compact('profile'));  
+      return view('dashboard.profile.profile',compact('profile','kondisi'));  
     }
     
     public function editprofile(Request $request,$id){
