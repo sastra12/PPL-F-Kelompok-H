@@ -71,7 +71,7 @@
                     </button>
                   </div>
                   <div class="float-right">
-                    <a href="{{route('/')}}" class="text-small">
+                    <a href="{{route('back')}}" class="text-small">
                       Back to landing page
                     </a>
                   </div>

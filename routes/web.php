@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('landingpage.landingpage');
 });
+Route::get('/back','AuthController@back')->name('back');
 Route::get('/register','AuthController@register');
 Route::post('/postregister','AuthController@postregister');
 
@@ -35,6 +36,7 @@ Route::group(['middleware'=> ['auth','checkRole:1,2,3']], function(){
 
 Route::group(['middleware'=>['auth','checkRole:1']], function(){
     Route::get('/datainvestor','AdminController@datainvestor')->name('datainvestor');
+    Route::get('/search','AdminController@search')->name('search');
 });
 
 Route::group(['middleware'=>['auth','checkRole:3']],function(){

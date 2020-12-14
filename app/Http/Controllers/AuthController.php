@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     //
+    public function back()
+    {
+        return view('landingpage.landingpage');
+    }
+
     public function register()
     {
         return view('auth.register');
@@ -27,7 +32,7 @@ class AuthController extends Controller
         $validation = \Validator::make($request->all(),[
                 'name'=> 'required',
                 'email'=> 'required|email',
-                'password' => 'required|min:8|max:16',
+                'password' => 'required|min:6|max:16',
                 'nik' => 'required|max:16',
                 'alamat' => 'required',
                 'rekening' => 'required|max:16',
