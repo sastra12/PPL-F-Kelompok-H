@@ -39,8 +39,11 @@
                   @csrf
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" value="{{}}" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" name="email" tabindex="1" required autofocus >
+                    <input id="email" type="email" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" name="email" tabindex="1" required autofocus >
                   </div>
+                  <div class="invalid-feedback">
+                    {{$errors->first('email')}}
+                   </div>
                   <div class="form-group">
                     <div class="d-block">
                     	<label for="password" class="control-label">Password</label>
@@ -66,6 +69,11 @@
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                       Login
                     </button>
+                  </div>
+                  <div class="float-right">
+                    <a href="{{route('/')}}" class="text-small">
+                      Back to landing page
+                    </a>
                   </div>
                 </form>
                 {{-- <div class="text-center mt-4 mb-3">

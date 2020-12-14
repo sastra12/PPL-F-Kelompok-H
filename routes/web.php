@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('landingpage.landingpage');
 });
 Route::get('/register','AuthController@register');
 Route::post('/postregister','AuthController@postregister');
