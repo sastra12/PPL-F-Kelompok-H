@@ -26,9 +26,9 @@
                 <div class="card-header-form">
                   <form action="{{route('search')}}" method="get">
                     <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Search" name="data" autocomplete="off" id="search">
+                      <input type="text" class="form-control" placeholder="Search" name="data" autocomplete="off">
                       <div class="input-group-btn">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-search" id="mydata"></i></button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                       </div>
                     </div>
                   </form>
@@ -49,7 +49,6 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @if ($data->count() > 0)
                       @foreach ($data as $item)
                       <tr>
                         <th>{{$loop->iteration}}</th>
@@ -61,7 +60,6 @@
                         <td>{{$item->role_name}}</td>
                       </tr>
                       @endforeach
-                      @endif
                     </tbody>  
                   </table>
                   {{-- {{$data->links() }} --}}

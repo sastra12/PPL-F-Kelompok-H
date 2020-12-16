@@ -38,9 +38,15 @@ class PeternakanController extends Controller
      */
     public function buatinvestasi(Request $request)
     {
-        // dd($request->all());
+        $validation = \Validator::make($request->all(),[
+            'nominal'=> 'required|integer|min:6',
+
+        ])->validate();
         $current_user = auth()->user()->id;
         $peternakan = Peternakan::select('id')->where('id_user',$current_user)->first();
+        $id_Peternakan =(string)$peternakan->id;
+        $ekstensi = ".pdf";
+        $namaFile = $id_Peternakan . $ekstensi;
 
         // $idpeternak = Peternakan::select('id_user')->where('id',$current_user)->first();
 
@@ -51,8 +57,14 @@ class PeternakanController extends Controller
         // dd($data);
         $data->nominal = $request->input('nominal');
         $data->id_peternak = $current_user;
-        $data->saratperjanjian = $request->input('sarat');
+        // $data->saratperjanjian = $request->input('sarat');
         $data->status = 0;
+        if($request->hasFile('suratPerjanjian')){
+            $path = $request->file('suratPerjanjian')->move('suratPerjanjian/',$namaFile);
+            $data->saratperjanjian = $namaFile;
+            $data->save();
+        }
+        // dd($data);
         $data->save();
         return redirect()->route('dashboard');
         

@@ -70,19 +70,19 @@ class AuthController extends Controller
 
     public function postlogin(Request $request){
         $validation = \Validator::make($request->all(),[
-            'email'=> 'required|email|max:25',
+            'email' => 'required|max:25',
             'password' => 'required|min:8|max:16',
         ],
         [
             'email.required' => 'Data tidak boleh kosong,harap di isi',
-            'password.required' => 'Data tidak boleh kosong, harap di isi'
+            'password.required' => 'Password tidak boleh kosong, harap di isi'
         ])->validate();
         $user = $request->only('email','password');
         if(Auth::attempt($user)){
         // dd($user);
            return redirect('dashboard');
         }
-        return redirect('/login')->with('message','Data yang anda masukan salah!!');
+        return redirect('/login')->with('message','Email atau password yang anda masukan tidak sesuai !!');
     }
 
     public function securitypassword(){
@@ -125,6 +125,6 @@ class AuthController extends Controller
 
     public function logout(){
         Auth::logout();
-        return redirect('login');
+        return redirect('/');
     }
 }

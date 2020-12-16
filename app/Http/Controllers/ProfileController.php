@@ -66,6 +66,12 @@ class ProfileController extends Controller
     }
 
     public function editprofiladmin(Request $request,$id){
+      $validation = \Validator::make($request->all(),[
+        'name'=> 'max:50',
+        'email' => 'required|email|max:25',
+        'notelepon'=> 'required|max:15',
+        
+      ])->validate();
       $user= User::find($id);
       $user= User::where('id',$id)->first();
       $user->name = $request->input('nama');

@@ -53,19 +53,25 @@ class InvestorController extends Controller
         $peternak = Pengajuaninvestasi::select('id_peternak')->where('id_peternakan',$id)->first();
         $idpengajuan = Pengajuaninvestasi::select('id')->where('id_peternakan',$id)->first();
         
-
+        $id_Peternakan = $id;
+        $ekstensi = ".pdf";
+        $namaFile = $id_Peternakan . "Investor" . $ekstensi;
         $proses = new \App\Prosesinvestasi;
         $proses->id_pengajuan = $idpengajuan->id;
         $proses->id_peternak = $peternak->id_peternak;
         $proses->id_investor = $investor;
-        $proses->pesan = $request->input('pesan');
+        // $proses->pesan = $request->input('pesan');
         // dd($proses);
         if($request->hasFile('bukti')){
             $path = $request->file('bukti')->move('avatars/',$request->file('bukti')->getClientOriginalName());
             $proses->bukti = $request->file('bukti')->getClientOriginalName();
-            $proses->save();
+            // $proses->save();
         }
-        
+        if($request->hasFile('suratPerjanjian')){
+            $path = $request->file('suratPerjanjian')->move('suratPerjanjian/',$namaFile);
+            $proses->pesan = $namaFile;
+        }
+        // dd($proses);
         $proses->save();
         return redirect()->route('datainvestasi');
     }

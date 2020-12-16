@@ -13,12 +13,13 @@
       <ul class="sidebar-menu">
         @if (auth()->user()->role_id==1)
         <li><a href="#"><i class="fas fa-fire"></i><span>Dashboard</span></a></li>
-        <li><a href="{{route('datainvestor')}}"><i class="fas fa-columns"></i> <span>Data Investor</span></a></li>
-        <li><a href=""><i class="far fa-square"></i> <span>Data Peternak</span></a></li>
+        <li><a href="{{route('datauser')}}"><i class="fas fa-columns"></i> <span>Data User</span></a></li>
+        {{-- <li><a href="{{route('datapeternak')}}"><i class="far fa-square"></i> <span>Data Peternak</span></a></li> --}}
+        <li><a href="{{route('adminpeternak')}}"><i class="fas fa-th-large"></i> <span>Data Peternakan</span></a></li>
         <li><a href="#"><i class="fas fa-th"></i> <span>Data Laporan Bulanan</span></a></li>
-        <li><a href="#"><i class="fas fa-th-large"></i> <span>Data Peternakan</span></a></li>
         <li><a href="#" ><i class="far fa-file-alt"></i> <span>Data Laporan Penipuan</span></a></li>
         <li><a href="#" ><i class="far fa-file-alt"></i> <span>Data Investasi</span></a></li>
+        <li><a href="{{route('uploadperjanjian')}}" ><i class="far fa-file-alt"></i> <span>Surat Perjanjian Investasi</span></a></li>
         @elseif(auth()->user()->role_id==2)
         <li><a href="{{route('dashboard')}}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
         <li><a href="{{route('peternakan')}}"><i class="fas fa-th-large"></i> <span>Data Peternakan</span></a></li>

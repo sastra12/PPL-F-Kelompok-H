@@ -6,10 +6,10 @@
 <section class="section">
     <div class="section-header">
       <h1>Profile</h1>
-      <div class="section-header-breadcrumb">
+      {{-- <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
         <div class="breadcrumb-item">Profile</div>
-      </div>
+      </div> --}}
     </div>
     <div class="section-body">
       {{-- <h2 class="section-title">{{$profile->name}}</h2> --}}
@@ -76,27 +76,39 @@
                 <div class="row">
                   <div class="form-group col-md-6 col-12">
                     <label>Nama Lengkap</label>
-                    <input type="text" class="form-control" value="{{$data['name']}}" required="" name="nama" autocomplete="off">
+                    <input type="text" class="form-control {{$errors->first('name') ? "is-invalid" : ""}}" value="{{$data['name']}}" name="nama" autocomplete="off">
+                    <div class="invalid-feedback">
+                      {{$errors->first('name')}}
+                    </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-6 col-12">
                     <label>Email</label>
-                    <input type="text" class="form-control" value="{{$data['email']}}" required="" name="email" autocomplete="off">
+                    <input type="text" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" value="{{$data['email']}}" name="email" autocomplete="off">
+                    <div class="invalid-feedback">
+                      {{$errors->first('email')}}
+                    </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-6 col-12">
                     <label>No Telepon</label>
-                    <input type="text" class="form-control" value="{{$data['notelepon']}}" required="" name="notelepon" autocomplete="off">
+                    <input type="text" class="form-control {{$errors->first('notelepon') ? "is-invalid" : ""}}" value="{{$data['notelepon']}}" name="notelepon" autocomplete="off">
+                    <div class="invalid-feedback">
+                      {{$errors->first('notelepon')}}
+                    </div>
                   </div>
                 </div>
                 {{-- @endforeach --}}
-                <div class="card-footer text-left">
+                <div class>
                   <button class="btn btn-primary">Save Changes</button>
                 </div>
               </div>
             </form>
+            <div class="card-footer text-left">
+              <a href="{{route('dashboard')}}"><button class="btn btn-primary">Batal</button></a>
+            </div>
             @endif
             
             @if(auth()->user()->role_id != 1)
@@ -109,7 +121,10 @@
                   <div class="row">
                     <div class="form-group col-md-6 col-12">
                       <label>Nama Lengkap</label>
-                      <input type="text" class="form-control" value="{{$profile->name}}" required="" name="nama">
+                      <input type="text" class="form-control {{$errors->first('nama') ? "is-invalid" : ""}}" value="{{$profile->name}}" required="" name="nama">
+                      <div class="invalid-feedback">
+                        {{$errors->first('nama')}}
+                      </div>
                     </div>
                   </div>
                   <div class="row">

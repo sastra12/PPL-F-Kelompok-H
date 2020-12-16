@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('landingpage.landingpage');
 });
 Route::get('/back','AuthController@back')->name('back');
-Route::get('/register','AuthController@register');
+Route::get('/register','AuthController@register')->name('register');
 Route::post('/postregister','AuthController@postregister');
 
 Route::get('/login','AuthController@login')->name('login');
@@ -35,7 +35,11 @@ Route::group(['middleware'=> ['auth','checkRole:1,2,3']], function(){
 });
 
 Route::group(['middleware'=>['auth','checkRole:1']], function(){
-    Route::get('/datainvestor','AdminController@datainvestor')->name('datainvestor');
+    Route::get('/datauser','AdminController@datauser')->name('datauser');
+    Route::get('/admindatapeternak','AdminController@adminpeternakan')->name('adminpeternak');
+    Route::get('/detailpeternak','AdminController@detailpeternak')->name('detailpeternak');
+    Route::get('/perjanjian','AdminController@uploadSuratPerjanjianView')->name('uploadperjanjian');
+    Route::post('/submitperjanjian','AdminController@uploadSuratPerjanjian')->name('submitperjanjian');
     Route::get('/search','AdminController@search')->name('search');
 });
 

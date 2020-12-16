@@ -30,7 +30,7 @@
   <nav class="navbar navbar-light bg-light static-top">
     <div class="">
       <!-- <a class="navbar-brand" href="">Start</a> -->
-      <a class="btn btn-primary" href="#">Sign Up</a>
+      <a class="btn btn-primary" href="{{route('register')}}">Sign Up</a>
       <a class="btn btn-primary" href="{{route('login')}}">Login</a>
     </div>
   </nav>
