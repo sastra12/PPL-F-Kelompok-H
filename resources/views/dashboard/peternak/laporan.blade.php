@@ -15,10 +15,17 @@
   
     <div class="section-body">
       <div class="section-body">
+<<<<<<< Updated upstream
         <!-- <h2 class="section-title">Article Style C</h2> -->
             <a href="{{route('formlaporan')}}"><button type="button" class="btn btn-primary"> Buat Laporan</button></a>
         <br>
         <br>
+=======
+      <a href="{{route('formlaporan')}}"><button type="button" class="btn btn-primary"> Buat Laporan</button></a>
+      <br>
+      <br>
+
+>>>>>>> Stashed changes
         <div class="row">
           @foreach ($investor as $item)
           <div class="col-sm-12">

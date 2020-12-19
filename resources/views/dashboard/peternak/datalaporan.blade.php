@@ -21,10 +21,10 @@
                 </div>
                 <div class="col-auto mb-3">
                   <div class="card" style="width: 68rem;">
-                <div class="card">
-                  <div class="card-header">
-                    <h4>Investor</h4>
-                  </div> 
+                    <div class="card">
+                      <div class="card-header">
+                        <h4>Investor</h4>
+                      </div>  
                     <div class="card-body">
                       <table>
                         <tr>
@@ -44,16 +44,96 @@
                         </tr>
                       </table>                      
                     </div>
-                  <div class="card-footer bg-whitesmoke">
-                    <center>
-                      Foto bukti
-                      <br>
-                      <a href="/avatars/{{$item->bukti}}">lihat gambar</a>
-                    </center>
+                      <div class="card-footer bg-whitesmoke">
+                        <center>
+                          Foto bukti
+                          <br>
+                          <a href="/avatars/{{$item->bukti}}">lihat gambar</a>
+                        </center>
+                      </div>
                   </div>
+<<<<<<< Updated upstream
                 <!-- </div> -->
                 </div>
+<<<<<<< Updated upstream
               </div>
+=======
+                  </div>
+                  </div>
+                    <!-- form -->
+                    <form class="needs-validation" novalidate="" enctype="multipart/form-data" action="" method="POST">
+=======
+                </div>
+                <!-- form -->
+                <form class="needs-validation" novalidate="" enctype="multipart/form-data" action="" method="POST">
+>>>>>>> Stashed changes
+                      @csrf
+                        <div class="card-header">
+                          <h4>Data Laporan bulanan</h4>
+                        </div>
+                        @if(session()->has('success'))
+                          <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                          </div>
+                        @endif
+                        <div class="card-body">
+                        <div class="form-group">
+                          <label>Nominal Pemasukan</label>
+                          <p>(hasil penjualan hasil ternak)</p>
+                          <input type="number" class="form-control @error('nama') is-invalid @enderror" autocomplete="off" name="pemasukan" value="" >
+                          @error('nama')
+                              <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        <div class="form-group">
+                          <label>Keterangan pemasukan</label>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="ket_masuk" ></textarea>
+                          @error('nama')
+                              <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        <div class="form-group">
+                          <label>Preview Gambar</label>
+                            <div class="container">
+                              <a href="/avatars/">lihat gambar</a>
+                            </div>
+                          @error('avatar')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        <div class="form-group">
+                          <label>Nominal Pengeluaran</label>
+                          <p>(penggunaan uang investasi)</p>
+                          <input type="number" class="form-control @error('nama') is-invalid @enderror" autocomplete="off" name="pengeluaran" value="" >
+                          @error('nama')
+                              <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        <div class="form-group">
+                          <label>Keterangan pengeluaran</label>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="ket_keluar" ></textarea>
+                          @error('nama')
+                              <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        <div class="form-group">
+                          <label>Preview Gambar</label>
+                            <div class="container">
+                              <a href="/avatars/">lihat gambar</a>
+                            </div>
+                          @error('avatar')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        <!-- <div class="card-footer text-right">
+                          <button class="btn btn-primary" type="submit">Save</button>
+                        </div> -->
+                    </form>
+                    <!-- end form -->
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
               @endforeach
           </div>
         </div>

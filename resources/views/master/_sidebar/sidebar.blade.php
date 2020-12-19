@@ -20,10 +20,16 @@
         <li><a href="{{route('peternakan')}}"><i class="fas fa-th-large"></i> <span>Data Peternakan</span></a></li>
         <li><a href="#" ><i class="far fa-file-alt"></i> <span>Data Laporan Bulanan</span></a></li>
         @else
+<<<<<<< Updated upstream
         <li><a href="#"><i class="fas fa-columns"></i> <span>Data Investasi</span></a></li>
         <li><a href=""><i class="far fa-square"></i> <span>Data Peternakan</span></a></li>
         <li><a href="#"><i class="fas fa-th"></i> <span>Laporan Penipuan</span></a></li>
         <li><a href="#"><i class="fas fa-th-large"></i> <span>Laporan Bulanan</span></a></li>
+=======
+        <li><a href="{{route('datainvestasi')}}"><i class="fas fa-columns"></i> <span>Data Investasi</span></a></li>
+        <li><a href="{{route('penipuan')}}"><i class="fas fa-th"></i> <span>Laporan Penipuan</span></a></li>
+        <li><a href="{{route('laporan')}}"><i class="fas fa-th-large"></i> <span>Laporan Bulanan</span></a></li>
+>>>>>>> Stashed changes
         @endif
     </aside>
   </div>

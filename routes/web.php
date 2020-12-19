@@ -30,20 +30,55 @@ Route::group(['middleware'=> ['auth','checkRole:1,2,3']], function(){
     
 });
 
+<<<<<<< Updated upstream
+=======
+Route::group(['middleware'=>['auth','checkRole:1']], function(){
+    Route::get('/datauser','AdminController@datauser')->name('datauser');
+    Route::get('/admindatapeternak','AdminController@adminpeternakan')->name('adminpeternak');
+    Route::get('/detailpeternak','AdminController@detailpeternak')->name('detailpeternak');
+    Route::get('/perjanjian','AdminController@uploadSuratPerjanjianView')->name('uploadperjanjian');
+    Route::post('/submitperjanjian','AdminController@uploadSuratPerjanjian')->name('submitperjanjian');
+    Route::get('/search','AdminController@search')->name('search');
+});
+
+Route::group(['middleware'=>['auth','checkRole:3']],function(){
+    Route::get('/datainvestasi','InvestorController@index')->name('datainvestasi');
+    Route::get('/profilpeternak/{id}','InvestorController@profilpeternak')->name('profilpeternak');
+    Route::post('/penerimaaninvestasi/{id}','InvestorController@penerimaaninvestasi')->name('penerimaaninvestasi');
+    Route::get('/laporan','InvestorController@laporan')->name('laporan');
+    Route::post('/datalaporanbulanan/{id}','InvestorController@datalaporan')->name('datalaporan');
+    Route::get('/penipuan', 'LaporanPenipuan@index')->name('penipuan');
+});
+
+>>>>>>> Stashed changes
 Route::group(['middleware'=> ['auth','checkRole:2']], function(){
     // Route::get('/dashboard','DashboardController@index')->name('dashboard');
     Route::get('/datapeternak','AuthController@index')->name('tambahdata');
     Route::post('/datapeternakan','PeternakanController@store')->name('datapeternakan');
     Route::get('/peternakan','PeternakanController@index')->name('peternakan');
     Route::post('/updatepeternakan/{id}','PeternakanController@update')->name('updatepeternakan');
-<<<<<<< Updated upstream
-=======
     Route::get('/pengajuaninvestasi','PeternakanController@pengajuaninvestasi')->name('pengajuaninvestasi');
     Route::post('/investasi','PeternakanController@buatinvestasi')->name('investasi');
     Route::get('/check','PeternakanController@check')->name('check');
     Route::get('/laporanbulanan','PeternakanController@laporan')->name('laporanbulanan');
     Route::get('/datalaporanbulanan/{id}','PeternakanController@datalaporanbulanan')->name('datalaporanbulanan');
     Route::get('/formlaporan', 'LaporanController@index')->name('formlaporan');
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     Route::post('/formlaporan', 'LaporanController@store')->name('postform');
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+    Route::post('/formlaporan', 'LaporanController@store')->name('storeform');
+>>>>>>> Stashed changes
+=======
+    Route::post('/formlaporan', 'LaporanController@store')->name('storeform');
+    // Route::get('/formlaporan/{id}', 'LaporanController@show')->name('showLaporan');
+
 >>>>>>> Stashed changes
 });

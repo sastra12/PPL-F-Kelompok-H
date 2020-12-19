@@ -39,8 +39,11 @@
                   @csrf
                   <div class="form-group">
                     <label for="email">Email</label>
+<<<<<<< Updated upstream
                     <input id="email" type="email" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" name="email" tabindex="1" required autofocus>
                     <input id="email" type="email" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" name="email" tabindex="1" required autofocus >
+=======
+>>>>>>> Stashed changes
                     <input id="email" type="email" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" name="email" tabindex="1" required autofocus >
                   </div>
                   <div class="form-group">
