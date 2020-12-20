@@ -106,7 +106,8 @@ class PeternakanController extends Controller
         ->join('prosesinvestasi','prosesinvestasi.id_investor','=','users.id')
         ->join('pengajuaninvestasi','pengajuaninvestasi.id','=','prosesinvestasi.id_pengajuan')
         ->where('prosesinvestasi.id_peternak',$user)
-        ->select('users.name','pengajuaninvestasi.created_at','prosesinvestasi.id_pengajuan')
+        ->where('prosesinvestasi.status','=',1)      
+        ->select('users.name','pengajuaninvestasi.created_at','prosesinvestasi.id_pengajuan','prosesinvestasi.status')
         ->get();
         // dd($investor);
         return view('dashboard.peternak.laporan',compact('investor','kondisi'));

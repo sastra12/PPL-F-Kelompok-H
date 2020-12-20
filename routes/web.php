@@ -17,7 +17,9 @@ Route::get('/', function () {
 Route::get('/back','AuthController@back')->name('back');
 Route::get('/register','AuthController@register')->name('register');
 Route::post('/postregister','AuthController@postregister');
-
+Route::get('/forgotpassword','AuthController@forgotpasswordview')->name('viewforgotpassword');
+Route::post('/resetpassword','AuthController@resetpassword')->name('resetpassword');
+// Route::PUT('/ressetpassword','AuthController@resetpassword')->name('reset');
 Route::get('/login','AuthController@login')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
 Route::get('/logout','AuthController@logout')->name('logout');
@@ -40,6 +42,8 @@ Route::group(['middleware'=>['auth','checkRole:1']], function(){
     Route::get('/detailpeternak','AdminController@detailpeternak')->name('detailpeternak');
     Route::get('/perjanjian','AdminController@uploadSuratPerjanjianView')->name('uploadperjanjian');
     Route::post('/submitperjanjian','AdminController@uploadSuratPerjanjian')->name('submitperjanjian');
+    Route::get('/konfirmasi','AdminController@konfirmasi')->name('konfirmasi');
+    Route::get('/konfirmasistatus/{id}','AdminController@konfirmasistatus')->name('konfirmasistatus');
     Route::get('/search','AdminController@search')->name('search');
 });
 
@@ -48,7 +52,10 @@ Route::group(['middleware'=>['auth','checkRole:3']],function(){
     Route::get('/profilpeternak/{id}','InvestorController@profilpeternak')->name('profilpeternak');
     Route::post('/penerimaaninvestasi/{id}','InvestorController@penerimaaninvestasi')->name('penerimaaninvestasi');
     Route::get('/laporan','InvestorController@laporan')->name('laporan');
-    Route::post('/datalaporanbulanan/{id}','InvestorController@datalaporan')->name('datalaporan');
+    Route::get('/laporanbulanan/{id}','InvestorController@datalaporan')->name('datalaporaninvestor');
+    Route::get('/penipuan', 'PenipuanController@index')->name('penipuan');
+    Route::get('/formPenipuan', 'PenipuanController@create')->name('formpenipuan');
+    // Route::get('/datalaporanbulanan/{id}','InvestorController@datalaporan')->name('datalaporaninvestor');
 });
 
 Route::group(['middleware'=> ['auth','checkRole:2']], function(){
@@ -62,4 +69,7 @@ Route::group(['middleware'=> ['auth','checkRole:2']], function(){
     Route::get('/check','PeternakanController@check')->name('check');
     Route::get('/laporanbulanan','PeternakanController@laporan')->name('laporanbulanan');
     Route::get('/datalaporanbulanan/{id}','PeternakanController@datalaporanbulanan')->name('datalaporanbulanan');
+    Route::get('/formLaporanBulanan' , 'LaporanBulananController@index')->name('formlaporan');
+    Route::post('/formLaporanBulanan', 'LaporanBulananController@store')->name('storeform');
+    Route::get('/formLaporanBulanan/{id}', 'LaporanBulananController@show')->name('showLaporan');
 });

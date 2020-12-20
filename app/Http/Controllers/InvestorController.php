@@ -60,6 +60,7 @@ class InvestorController extends Controller
         $proses->id_pengajuan = $idpengajuan->id;
         $proses->id_peternak = $peternak->id_peternak;
         $proses->id_investor = $investor;
+        $proses->status = 0;
         // $proses->pesan = $request->input('pesan');
         // dd($proses);
         if($request->hasFile('bukti')){
@@ -82,10 +83,14 @@ class InvestorController extends Controller
         ->join('prosesinvestasi','prosesinvestasi.id_peternak','=','users.id')
         ->join('pengajuaninvestasi','pengajuaninvestasi.id','=','prosesinvestasi.id_pengajuan')
         ->where('prosesinvestasi.id_investor',$user)
+        ->where('prosesinvestasi.status',1)
         ->select('users.name','pengajuaninvestasi.created_at','prosesinvestasi.id_pengajuan')
         ->get();
-        return view('dashboard.investor.laporan',compact('peternak'));
+        return view('dashboard.investor.laporaninvestor',compact('peternak'));
+    }
 
+    public function datalaporan($id){
+        return view('dashboard.investor.datalaporan');
     }
 
     /**

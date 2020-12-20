@@ -22,22 +22,56 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
+    public function forgotpasswordview(){
+        return view('auth.forgotpassword');
+    }
+
     public function index(){
         return view('auth.datapeternak');
     }
 
+    public function resetpassword(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'email' => 'required|email',
+        ],
+        [
+            'email.required' => 'Data tidak boleh kosong,harap di isi'
+        ]
+        )->validate();
+      
+        // $user = Auth::id();
+        // dd($user);
+        $user = new \App\User;
+        $user = $request->input('email');
+        $user->password = \Hash::make($request->get('password'));
+        // dd($user);
+        if(User::where('email','=',$user)->exists()){
+            
+        }
+        else{
+            return back()->with('pesan','Email Belum Terdaftar');
+        }
+    }
+
+    // public function ressetpassword(Request $request){
+    //     $validator= \Validator::make($request->all(), [
+    //         'password' => 'required|min:6|max:16',
+    //     ])->validate();
+
+    // }
 
     public function postregister(Request $request)
     {
         $validation = \Validator::make($request->all(),[
                 'name'=> 'required',
-                'email'=> 'required|email',
+                'email'=> 'required|email|regex:/(.*)@gmail\.com/i',
                 'password' => 'required|min:6|max:16',
-                'nik' => 'required|max:16',
+                // 'nik' => 'required|max:16',
                 'alamat' => 'required',
                 'rekening' => 'required|max:16',
                 'notelepon' => 'required|max:15',
                 'role_id' => 'required',
+                'gambarktp'=> 'image|mimes:jpeg,png,jpg,gif,svg'
         ])->validate();
         $user = new \App\User;
         $user->name = $request->input('name');
@@ -47,8 +81,25 @@ class AuthController extends Controller
         $user->role_id = $request->input('role_id');
         $user->save();
         //insert ke tabel biouser
-        $request->request->add(['id_user'=>$user->id]);
-        $biouser = \App\Biouser::create($request->all());
+        // $request->request->add(['id_user'=>$user->id]);
+        // $biouser = \App\Biouser::create($request->all());
+        $biouser =new \App\Biouser;
+        $biouser->id_user = $user->id;
+        $biouser->alamat=$request->input('alamat');
+        $biouser->rekening=$request->input('rekening');
+        $biouser->notelepon=$request->input('notelepon');
+        // dd($biouser);
+        // dd($request);
+        if($request->hasFile('filektp')){
+        $path = $request->file('filektp')->move('avatars/',$request->file('filektp')->getClientOriginalName());
+        // dd($path);
+        $biouser->gambarktp =  $request->file('filektp')->getClientOriginalName();;
+        // dd($biouser);
+        $biouser->save();
+        }
+        $biouser->save();
+
+      
         // dd($user->role_id = $request->input('role_id'));
         // if($user->role_)
         $lastvalue = DB::table('users')->latest()->first();
@@ -74,7 +125,7 @@ class AuthController extends Controller
             'password' => 'required|min:8|max:16',
         ],
         [
-            'email.required' => 'Data tidak boleh kosong,harap di isi',
+            'email' => 'Data tidak boleh kosong,harap di isi',
             'password.required' => 'Password tidak boleh kosong, harap di isi'
         ])->validate();
         $user = $request->only('email','password');

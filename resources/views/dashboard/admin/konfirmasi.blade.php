@@ -17,20 +17,25 @@
       <div class="section-header">
         <h1>Data</h1>
       </div>
+      @if(session()->has('pesan'))
+      <div class="alert alert-success">
+          {{ session()->get('pesan') }}
+      </div>
+      @endif
       <div class="row">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
                 <h4>Data Investor</h4>
                 <div class="card-header-form">
-                  <form action="{{route('search')}}" method="get">
+                  {{-- <form action="{{route('search')}}" method="get">
                     <div class="input-group">
                       <input type="text" class="form-control" placeholder="Search" name="data" autocomplete="off" id="search">
                       <div class="input-group-btn">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-search" id="mydata"></i></button>
                       </div>
                     </div>
-                  </form>
+                  </form> --}}
                 </div>
               </div>
               <div class="">
@@ -39,12 +44,13 @@
                     <thead class="thead-dark">
                       <tr>
                         <th>No</th>
-                        <th>Nama Peternakan</th>
-                        <th>Alamat Peternakan</th>
-                        <th>Jumlah Kambing Dewasa</th>
-                        <th>Jumlah Kambing Anakan</th>
-                        <th>Gambar</th>
+                        {{-- <th>Nama Peternakan</th> --}}
+                        <th>Bukti Pembayaran</th>
+                        <th>File Perjanjian</th>
+                        <th>Status</th>
                         <th>Aksi</th>
+                        {{-- <th>Gambar</th>
+                        <th>Aksi</th> --}}
                       </tr>
                     </thead>
                     <tbody>
@@ -52,21 +58,22 @@
                       @foreach ($data as $item)
                       <tr>
                         <th>{{$loop->iteration}}</th>
-                        <td>{{$item->namapeternakan}}</td>
-                        <td>{{$item->alamatpeternakan}}</td>
-                        <td>{{$item->jmlkambingdewasa}}</td>
-                        <td>{{$item->jmlkambinganakan}}</td>
                         <td>
-                            <img src="/avatars/{{$item->namagambar}}" height="100px" width="100px" />
+                            <a href="/avatars/{{$item->bukti}}">{{$item->bukti}}</a>
                         </td>
                         <td>
-                            {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop"> --}}
-                                <a href="">
-                                    <span class="glyphicon glyphicon-level-up" data-target="#staticBackdrop" data-toggle="modal"></span>
-                                    {{-- <button type="button" data-target="#staticBackdrop" data-toggle="modal"><span class="glyphicon glyphicon-level-up"></span></button> --}}
-                                </a>
-                            {{-- </button> --}}
-                        </td>     
+                            <a href="/suratPerjanjian/{{$item->pesan}}">{{$item->pesan}}</a>
+                        </td>
+                        @if($item->status == 0)
+                            <td>Belum di Konfirmasi</td>
+                        @else
+                            <td>Sudah di Konfirmasi</td>
+                        @endif
+                        <td>
+                            <a href="{{route('konfirmasistatus',[$item->id])}}">
+                                <span class="btn btn-primary">Konfirmasi</span> 
+                            </a>
+                        </td>
                       </tr>
                       @endforeach
                       {{-- @endif --}}

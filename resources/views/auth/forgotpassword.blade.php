@@ -28,36 +28,30 @@
               <img src="../assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
             </div> --}}
             <div class="card card-primary">
-              <div class="card-header"><h4>Login</h4></div>
-              @if (session()->has('message'))
+              <div class="card-header"><h4>Forgot Password</h4></div>
+              @if (session()->has('pesan'))
               <div class="alert alert-danger">
-                {{session()->get('message')}}
+                {{session()->get('pesan')}}
               </div>
               @endif
               <div class="card-body">
-                <form method="POST" action="/postlogin" class="needs-validation" novalidate="">
+                <form method="POST" action="{{route('resetpassword')}}" class="needs-validation" novalidate="">
                   @csrf
-                  <div class="form-group">
+                <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" name="email" value="{{old('email')}}" >
-                  </div>
-                  <div class="invalid-feedback">
-                    {{$errors->first('email')}}
-                   </div>
-                  <div class="form-group">
-                    <div class="d-block">
-                    	<label for="password">Password</label>
-                      <div class="float-right">
-                        <a href="{{route('viewforgotpassword')}}" class="text-small">
-                          Forgot Password?
-                        </a>
-                      </div>
-                    </div>
-                    <input id="password" type="password" class="form-control {{$errors->first('password') ? "is-invalid" : ""}}" name="password">
+                    <input id="email" type="email" class="form-control {{$errors->first('email') ? "is-invalid" : ""}}" name="email" value="" >
                     <div class="invalid-feedback">
-                      {{$errors->first('password')}}
+                        {{$errors->first('email')}}
                     </div>
-                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Password Baru</label>
+                    <input id="email" type="email" class="form-control {{$errors->first('password') ? "is-invalid" : ""}}" name="password" value="" >
+                    <div class="invalid-feedback">
+                        {{$errors->first('password')}}
+                    </div>
+                </div>
+                  
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
@@ -66,7 +60,7 @@
                   </div>
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Login
+                      Update
                     </button>
                   </div>
                   <div class="float-right">

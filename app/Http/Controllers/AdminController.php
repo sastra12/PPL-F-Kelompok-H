@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\User;
+use App\Prosesinvestasi;
 class AdminController extends Controller
 {
     //
@@ -61,5 +62,17 @@ class AdminController extends Controller
         }
         // dd($request);
         return view('dashboard.admin.uploadperjanjian');
+    }
+
+    public function konfirmasi(){
+        $data = DB::table('prosesinvestasi')
+        ->select('prosesinvestasi.bukti','prosesinvestasi.pesan','prosesinvestasi.status','prosesinvestasi.id')
+        ->get();
+        return view('dashboard.admin.konfirmasi',compact('data'));
+    }
+
+    public function konfirmasistatus($id){
+        $data = Prosesinvestasi::where('id',$id)->update(['status' => 1]);
+        return back()->with('pesan','Status berhasil diubah');
     }
 }

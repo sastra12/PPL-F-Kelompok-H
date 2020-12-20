@@ -69,11 +69,11 @@
                     <label>Nominal Pengajuan</label>
                     <input type="text" class="form-control" value="{{$item->nominal}}" readonly>
                   </div>
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                     <label>Surat Perjanjian</label>
                     <br>
                     <a href="/suratPerjanjian/{{$item->saratperjanjian}}">Download Surat Perjanjian</a>
-                  </div>
+                  </div> --}}
                   <div class="form-group">
                     <label>Upload Bukti</label>
                     <input type="file" class="form-control @error('avatar') is-invalid @enderror" autocomplete="off" name="bukti" value="">

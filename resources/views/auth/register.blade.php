@@ -30,7 +30,7 @@
             <div class="card card-primary">
               <div class="card-header"><h4>Register</h4></div>
               <div class="card-body">
-                <form method="POST" action="/postregister">
+                <form method="POST" action="/postregister" enctype="multipart/form-data">
                   @csrf
                   <div class="row">
                     <div class="form-group col-12">
@@ -61,7 +61,7 @@
                       <input value="{{old('password-confirm')}}" id="password2" type="password" class="form-control" name="password-confirm">
                     </div> --}}
                   </div>
-                  <div class="row">
+                  {{-- <div class="row">
                     <div class="form-group col-12">
                       <label for="first_name">Nomor Induk Kependudukan</label>
                       <input value="{{old('nik')}}" id="first_name" type="text" class="form-control {{$errors->first('nik') ? "is-invalid" : ""}}" name="nik" autofocus autocomplete="off">
@@ -69,7 +69,7 @@
                         {{$errors->first('nik')}}
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
                   <div class="row">
                     <div class="form-group col-12">
                       <label for="first_name">Alamat</label>
@@ -106,10 +106,13 @@
                       </select>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-                      <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
+                  <div class="row">
+                    <div class="form-group col-12">
+                      <label for="first_name">Upload Foto Ktp</label>
+                      <input type="file" value="" id="first_name" type="text" class="form-control {{$errors->first('filektp') ? "is-invalid" : ""}}" name="filektp" autofocus autocomplete="off">
+                      <div class="invalid-feedback">
+                        {{$errors->first('filektp')}}
+                      </div>
                     </div>
                   </div>
                   <div class="form-group">
