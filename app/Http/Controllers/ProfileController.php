@@ -26,7 +26,11 @@ class ProfileController extends Controller
     
     public function editprofile(Request $request,$id){
       $this->validate($request,[
-        'nama' => 'required|min:5',
+        'nama' => 'required|max:50|alpha',
+        'alamat' => 'required|max:50',
+        'rekening' => 'required|max:16',
+        'telepon' => 'required|max:12',
+        'gambarktp.*' => 'image|max:2048|mimes:jpeg,png,jpg,gif,svg',
       ]);
       $user= User::find($id);
       $user= User::where('id',$id)->first();
@@ -38,10 +42,15 @@ class ProfileController extends Controller
       // if($user->save()){
       // $biouser = Biouser::find($id);
       $biouser= Biouser::where('id_user',$user->id)->first();
-      $biouser->nik=$request->input('nik');
+      // $biouser->nik=$request->input('nik');
       $biouser->alamat=$request->input('alamat');
       $biouser->rekening=$request->input('rekening');
       $biouser->notelepon=$request->input('telepon');
+      if($request->hasFile('gambarktp')){
+        $path = $request->file('gambarktp')->move('avatars/',$request->file('gambarktp')->getClientOriginalName());
+        $biouser->gambarktp = $request->file('gambarktp')->getClientOriginalName();
+        $biouser->save();
+    }
       $biouser->save();
       return redirect()->route('profile',$user->id)->with('success','Informasi Profile Berhasil di Update');
     }

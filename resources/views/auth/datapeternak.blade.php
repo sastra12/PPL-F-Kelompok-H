@@ -72,44 +72,11 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-12">
-                        <label for="first_name">Avatar</label>
+                        <label for="first_name">Foto Peternakan</label>
                         <input type="file" class="form-control @error('avatar') is-invalid @enderror" autocomplete="off" name="avatar[]" multiple>
                         @error('avatar')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
-                    </div>
-                  </div>
-                  {{-- <div class="row">
-                    <div class="form-group col-12">
-                      <label for="first_name">Rekening</label>
-                      <input value="{{old('rekening')}}" id="first_name" type="text" class="form-control {{$errors->first('rekening') ? "is-invalid" : ""}}" name="rekening" autofocus autocomplete="off">
-                      <div class="invalid-feedback">
-                        {{$errors->first('rekening')}}
-                      </div>
-                    </div>
-                  </div> --}}
-                  {{-- <div class="row">
-                    <div class="form-group col-12">
-                      <label for="first_name">No Telepon</label>
-                      <input value="{{old('notelepon')}}" id="first_name" type="text" class="form-control {{$errors->first('notelepon') ? "is-invalid" : ""}}" name="notelepon" autofocus autocomplete="off">
-                      <div class="invalid-feedback">
-                        {{$errors->first('notelepon')}}
-                      </div>
-                    </div>
-                  </div> --}}
-                  {{-- <div class="row">
-                    <div class="form-group col-12">
-                      <label>Role Pilihan</label>
-                      <select class="form-control selectric" name="role_id">
-                        <option value="2">Peternak</option>
-                        <option value="3">Investor</option>
-                      </select>
-                    </div>
-                  </div> --}}
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-                      <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
                     </div>
                   </div>
                   <div class="form-group">

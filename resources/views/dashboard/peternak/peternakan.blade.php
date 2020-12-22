@@ -12,9 +12,9 @@
           <div class="card-header">
             <h4>Data Peternakan</h4>
           </div>
-          @if(session()->has('success'))
+          @if(session()->has('messages'))
             <div class="alert alert-success">
-              {{ session()->get('success') }}
+              {{ session()->get('messages') }}
             </div>
           @endif
           <div class="card-body">

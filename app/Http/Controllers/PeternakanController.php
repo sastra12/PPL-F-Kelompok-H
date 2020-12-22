@@ -145,10 +145,10 @@ class PeternakanController extends Controller
         //
         //
         $validation = \Validator::make($request->all(),[
-            'nama'=> 'required',
-            'alamat'=> 'required|min:5',
-            'jmlkambingdewasa' => 'integer|min:2',
-            'jmlkambinganakan' => 'integer|min:2',
+            'nama'=> 'required|max:50',
+            'alamat'=> 'required|max:50',
+            'jmlkambingdewasa' => 'integer|digits_between:1,4',
+            'jmlkambinganakan' => 'integer|digits_between:1,4',
             'avatar' => 'required',
             'avatar.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
     ])->validate();
@@ -234,24 +234,20 @@ class PeternakanController extends Controller
      */
     public function update(Request $request, $id)
     {   
-        
+        $validation = \Validator::make($request->all(),[
+            'nama'=> 'required|max:50',
+            'alamat'=> 'required|max:50',
+            'jmlkambingdewasa' => 'integer|digits_between:1,4',
+            'jmlkambinganakan' => 'integer|digits_between:1,4',
+            'avatar.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
+    ])->validate();
         $data = \App\Peternakan::where('id_user',$id)->first();
         
         $data->namapeternakan = $request->input('nama');
         $data->alamatpeternakan = $request->input('alamat');
         $data->jmlkambingdewasa = $request->input('jmlkambingdewasa');
         $data->jmlkambinganakan = $request->input('jmlkambinganakan');
-        // dd($data);
-        // dd($request->all());
-        // $awal = $user->namagambar;
-        // if($data->namagambar && file_exists(storage_path('public/avatars' . $data->namagambar))){
-        //         \Storage::delete('public/avatars'.$data->namagambar);
-        //         // $file = $request->file('avatar')->store('avatars',$request->file('avatar')->getClientOriginalName() );
-        //         // $data->avatar = $file;
-        //         $path = $request->file('avatar')->move('avatars/',$request->file('avatar')->getClientOriginalName());
-        //         $data->namagambar = $request->file('avatar')->getClientOriginalName();
-        //         $data->save();
-        //  }
+
         $awal = $data->namagambar;
         if($request->hasFile('avatar')){
             // \Storage::delete('avatars'.$awal);
@@ -261,7 +257,7 @@ class PeternakanController extends Controller
             $data->save();
         }
         $data->save();
-        return redirect()->back();
+        return redirect()->back()->with('messages','Data Berhasil di Update');
         
     }
 
