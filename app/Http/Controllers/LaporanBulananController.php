@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Pengajuaninvestasi;
 use Validator;
+use \App\Prosesinvestasi;
 use \App\Peternakan;
 use \App\User;
 use Auth;
@@ -52,63 +53,48 @@ class LaporanBulananController extends Controller
     {
     //    dd($request->ftbkt_in);
         $validation = \Validator::make($request->all(),[
-            'pemasukan' => 'required | min:1',
-            'ket_masuk' => 'required | min:1',
-            'ftbkt_in' => 'image|mimes:jpeg,png,jpg,gif,svg',
-            'pengeluaran' => 'required | min:1',
-            'ket_keluar' => 'required | min:1',
-            'ftbkt_out' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'pemasukan' => 'required|integer|digits_between:1,15',
+            'ket_masuk' => 'required|max:500',
+            'pengeluaran' => 'required|integer|digits_between:1,15',
+            'ket_keluar' => 'required|max:500',
+            // 'keuntungan' => 'required|integer|digits_between:1,15',
+            'ftbkt' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ])->validate();
         // dd($validation);
         try{
-            $laporan = new laporanBulanan();
-            $input = $request->all();
-            $images = array();
-            // if($files = $request->file('avatar')){
-            // foreach ($files as $file) {
-            //     $name = $file->getClientOriginalName();
-            //     $file->move('avatars/',$name);
-            //     $images[] = $name;
-            //     }
-            // }
-            // Laporan::insert([
-            //     'id_laporan' => Auth::user()->id,
-            //     'pemasukan' =>  $input['pemasukan'],
-            //     'ket_masuk' => $input['ket_masuk'],
-            //     'ftbkt_in' => $input['ftbkt_in'],
-            //     'pengeluaran' => $input['pengeluaran'],
-            //     'ket_keluar' => $input['ket_keluar'],
-            //     'ftbkt_out' => $input['ftbkt_out'],
-            // ]);
-            $ftbkt_in = $request->file('ftbkt_in');
-            $imageName = $ftbkt_in->getClientOriginalName();
-            $filename = pathinfo($imageName, PATHINFO_FILENAME);
-            $ext = $request->file('ftbkt_in')->getClientOriginalExtension();
-            $tgl = Carbon::now()->format('dmYHis');
-            $newname = $filename . $tgl . "." . $ext;
-            $ftbkt_in->move(public_path('test'), $newname);
- 
-            $ftbkt_out = $request->file('ftbkt_out');
-            $imageName1 = $ftbkt_out->getClientOriginalName();
-            $filename1 = pathinfo($imageName1, PATHINFO_FILENAME);
-            $ext1 = $request->file('ftbkt_in')->getClientOriginalExtension();
-            $tgl1 = Carbon::now()->format('dmYHis');
-            $newname1 = $filename1 . $tgl1 . "." . $ext1;
-            $ftbkt_out->move(public_path('test'), $newname1);
- 
-            $laporan->ftbkt_in = $newname;
-            $laporan->ftbkt_out = $newname1;
-            $laporan->id_laporan = Auth::user()->id;
-            $laporan->pemasukan = $request->pemasukan;
-            $laporan->ket_masuk = $request->ket_masuk;
-            // $laporan->ftbkt_in = $request->ftbkt_in;
-            $laporan->pengeluaran = $request->pengeluaran;
-            $laporan->ket_keluar = $request->ket_keluar;
-            // $laporan->ftbkt_out = $request->ftbkt_out;
- 
-            // dd($laporan);
-            $laporan->save();
-            return redirect('/laporanbulanan');
+            $lastdate = \App\LaporanBulanan::select('created_at')->latest()->first();
+            $bulan = Carbon::parse($lastdate->created_at)->month;
+            $year = Carbon::parse($lastdate->created_at)->year;
+            
+            $now = Carbon::now();
+            $yearnow = $now->year;
+            $bulannow = $now->month;
+            // dd($bulannow);
+            if($bulan==$bulannow&&$year==$yearnow){
+                return back()->with('message','Anda hanya bisa input satu bulan satu kali');
+            }
+            else{
+                $user = auth()->user()->id;
+                // dd($user);
+                $laporan = new \App\LaporanBulanan;
+                $keuntungan = $request->input('pemasukan')-$request->input('pengeluaran');
+                $data = Prosesinvestasi::select('id')->where('id_peternak',$user)->first();
+                $laporan->id_proses = $data->id;
+                $laporan->pemasukan = $request->input('pemasukan');
+                $laporan->keteranganpemasukan = $request->input('ket_masuk');
+                $laporan->pengeluaran = $request->input('pengeluaran');
+                $laporan->keteranganpengeluaran = $request->input('ket_keluar');
+                $laporan->keuntungan = $keuntungan;
+                if($request->hasFile('ftbkt')){
+                    $path = $request->file('ftbkt')->move('avatars/', $request->file('ftbkt')->getClientOriginalName());
+                    $laporan->fotobukti =$request->file('ftbkt')->getClientOriginalName();
+                    $laporan->save();
+                }
+                $laporan->save();
+    
+                return redirect('/laporanbulanan')->with('success','Data berhasil ditambahkan');
+            }
+       
         }catch (\Exception $e) {
             return $e -> getMessage();
         }

@@ -23,6 +23,7 @@ Route::post('/resetpassword','AuthController@resetpassword')->name('resetpasswor
 Route::get('/login','AuthController@login')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
 Route::get('/logout','AuthController@logout')->name('logout');
+Route::get('/datalaporanbulanan{id}/logout','AuthController@logout')->name('logout');
 
 
 Route::group(['middleware'=> ['auth','checkRole:1,2,3']], function(){

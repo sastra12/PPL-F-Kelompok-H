@@ -12,7 +12,7 @@
       </div> --}}
     </div>
     <div class="col-auto mb-3">
-      <div class="card" style="width: 70rem;">
+      <div class="card" style="width: 100rem;">
         <div class="section-body">
           <div class="card profile-widget">
               @foreach ($data as $item)
@@ -20,7 +20,7 @@
                   <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
                 </div>
                 <div class="col-auto mb-3">
-                  <div class="card" style="width: 68rem;">
+                  <div class="card" style="width: 98rem;">
                 <div class="card">
                   <div class="card-header">
                     <h4>Investor</h4>
@@ -54,71 +54,62 @@
                 </div>
                 </div>
               </div>
-              <form class="needs-validation" novalidate="" enctype="multipart/form-data" action="" method="POST">
-                @csrf
+            @endforeach
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
                   <div class="card-header">
-                    <h4>Data Laporan bulanan</h4>
-                  </div>
-                  @if(session()->has('success'))
-                    <div class="alert alert-success">
-                      {{ session()->get('success') }}
+                    <h4>Data Laporan Bulanan</h4>
+                    <div class="card-header-form">
+                      <form action="{{route('search')}}" method="get">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Search" name="data" autocomplete="off" id="search">
+                          <div class="input-group-btn">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-search" id="mydata"></i></button>
+                          </div>
+                        </div>
+                      </form>
                     </div>
-                  @endif
-                  <div class="card-body">
-                  <div class="form-group">
-                    <label>Nominal Pemasukan</label>
-                    <p>(hasil penjualan hasil ternak)</p>
-                    <input type="number" class="form-control @error('nama') is-invalid @enderror" autocomplete="off" name="pemasukan" value="" readonly >
-                    @error('nama')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                   </div>
-                  <div class="form-group">
-                    <label>Keterangan pemasukan</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="ket_masuk" readonly></textarea>
-                    @error('nama')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                  <div class="">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>No</th>
+                            <th>Pemasukan</th>
+                            <th>Keterangan Pemasukan</th>
+                            <th>Pengeluaran</th>
+                            <th>Keterangan Pengeluaran</th>
+                            <th>Keuntungan</th>
+                            <th>Foto Bukti</th>
+                            <th>Tanggal Upload</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {{-- @if ($data->count() > 0) --}}
+                          @foreach ($data2 as $item)
+                          <tr>
+                            <th>{{$loop->iteration}}</th>
+                            <td>{{$item->pemasukan}}</td>
+                            <td>{{$item->keteranganpemasukan}}</td>
+                            <td>{{$item->pengeluaran}}</td>
+                            <td>{{$item->keteranganpengeluaran}}</td>
+                            <td>{{$item->keuntungan}}</td>
+                            <td>
+                                <img src="/avatars/{{$item->fotobukti}}" height="100px" width="100px" />
+                            </td>
+                            <td>{{$item->created_at}}</td>   
+                          </tr>
+                          @endforeach
+    
+                        </tbody>  
+                      </table>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label>Preview Gambar</label>
-                      <div class="container">
-                        <a href="/avatars/">lihat gambar</a>
-                      </div>
-                    @error('avatar')
-                      <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                  </div>
-                  <div class="form-group">
-                    <label>Nominal Pengeluaran</label>
-                    <p>(penggunaan uang investasi)</p>
-                    <input type="number" class="form-control @error('nama') is-invalid @enderror" autocomplete="off" name="pengeluaran" value="" readonly>
-                    @error('nama')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                  </div>
-                  <div class="form-group">
-                    <label>Keterangan pengeluaran</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="ket_keluar" readonly></textarea>
-                    @error('nama')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                  </div>
-                  <div class="form-group">
-                    <label>Preview Gambar</label>
-                      <div class="container">
-                        <a href="/avatars/">lihat gambar</a>
-                      </div>
-                    @error('avatar')
-                      <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                  </div>
-                  <!-- <div class="card-footer text-right">
-                    <button class="btn btn-primary" type="submit">Save</button>
-                  </div> -->
-              </form>
-              <!-- end form -->
-              @endforeach
+                </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>

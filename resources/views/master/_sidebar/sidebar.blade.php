@@ -26,7 +26,7 @@
         @if($kondisi==0)
         <li><a href="{{route('pengajuaninvestasi')}}" ><i class="fas fa-th"></i> <span>Pengajuan Investasi</span></a></li>
         @elseif($kondisi==1)
-        <li><a href="{{route('pengajuaninvestasi')}}" ><i class="fas fa-th"></i> <span>Update Investasi</span></a></li>
+        {{-- <li><a href="{{route('pengajuaninvestasi')}}" ><i class="fas fa-th"></i> <span>Update Investasi</span></a></li> --}}
         @endif
         <li><a href="{{route('laporanbulanan')}}" ><i class="far fa-file-alt"></i> <span>Data Laporan Bulanan</span></a></li>
         @else

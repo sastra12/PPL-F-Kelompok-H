@@ -13,4 +13,8 @@ class Prosesinvestasi extends Model
     public function peternakan(){
         return $this->belongsTo('App\Peternakan');
     }
+
+    public function laporanbulanan(){
+        return $this->hasMany('App\LaporanBulanan');
+    }
 }

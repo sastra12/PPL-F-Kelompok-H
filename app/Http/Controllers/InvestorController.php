@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use DB;
 use \App\Peternakan;
 use \App\Pengajuaninvestasi;
+use \App\Prosesinvestasi;
 use Illuminate\Http\Request;
 
 class InvestorController extends Controller
@@ -90,7 +91,17 @@ class InvestorController extends Controller
     }
 
     public function datalaporan($id){
-        return view('dashboard.investor.datalaporan');
+        $user = auth()->user()->id;
+        $id_inv = Prosesinvestasi::select('id')->where('id_investor',$user)->first();
+        $id_proses = $id_inv->id;
+        $data = DB::table('laporanbulanan')
+        ->join('prosesinvestasi','prosesinvestasi.id','=','laporanbulanan.id_proses')
+        // ->where('prosesinvestasi.id','=',$id_proses)
+        ->where('laporanbulanan.id_proses',$id_proses)
+        ->select('laporanbulanan.pemasukan','laporanbulanan.keteranganpemasukan','laporanbulanan.pengeluaran','laporanbulanan.keteranganpengeluaran','laporanbulanan.keuntungan','laporanbulanan.fotobukti','laporanbulanan.created_at')
+        ->get();
+        // dd($data);
+        return view('dashboard.investor.datalaporan',compact('data'));
     }
 
     /**

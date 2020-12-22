@@ -1,19 +1,18 @@
 @extends('master.app')
-
-@section('title','Selamat Datang')
-
+@section('title', 'Form Laporan')
+ 
 @section('main')
 <section class="section">
     
     <div class="section-body">
       <div class="section-header">
-        <h1>Data</h1>
+        <h1>Data Laporan Bulanan</h1>
       </div>
       <div class="row">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4>Data Investor</h4>
+                <h4>Data Laporan Bulanan</h4>
                 <div class="card-header-form">
                   <form action="{{route('search')}}" method="get">
                     <div class="input-group">
@@ -31,12 +30,13 @@
                     <thead class="thead-dark">
                       <tr>
                         <th>No</th>
-                        <th>Nama Peternakan</th>
-                        <th>Alamat Peternakan</th>
-                        <th>Jumlah Kambing Dewasa</th>
-                        <th>Jumlah Kambing Anakan</th>
-                        <th>Gambar</th>
-                        <th>Aksi</th>
+                        <th>Pemasukan</th>
+                        <th>Keterangan Pemasukan</th>
+                        <th>Pengeluaran</th>
+                        <th>Keterangan Pengeluaran</th>
+                        <th>Keuntungan</th>
+                        <th>Foto Bukti</th>
+                        <th>Tanggal Upload</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -44,27 +44,20 @@
                       @foreach ($data as $item)
                       <tr>
                         <th>{{$loop->iteration}}</th>
-                        <td>{{$item->namapeternakan}}</td>
-                        <td>{{$item->alamatpeternakan}}</td>
-                        <td>{{$item->jmlkambingdewasa}}</td>
-                        <td>{{$item->jmlkambinganakan}}</td>
+                        <td>{{$item->pemasukan}}</td>
+                        <td>{{$item->keteranganpemasukan}}</td>
+                        <td>{{$item->pengeluaran}}</td>
+                        <td>{{$item->keteranganpengeluaran}}</td>
+                        <td>{{$item->keuntungan}}</td>
                         <td>
-                            <img src="/avatars/{{$item->namagambar}}" height="100px" width="100px" />
+                            <img src="/avatars/{{$item->fotobukti}}" height="100px" width="100px" />
                         </td>
-                        <td>
-                            {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop"> --}}
-                                <a href="">
-                                    <span class="glyphicon glyphicon-level-up" data-target="#staticBackdrop" data-toggle="modal"></span>
-                                    {{-- <button type="button" data-target="#staticBackdrop" data-toggle="modal"><span class="glyphicon glyphicon-level-up"></span></button> --}}
-                                </a>
-                            {{-- </button> --}}
-                        </td>     
+                        <td>{{$item->created_at}}</td>   
                       </tr>
                       @endforeach
-                      {{-- @endif --}}
+
                     </tbody>  
                   </table>
-                  {{-- {{$data->links() }} --}}
                 </div>
               </div>
             </div>
@@ -74,4 +67,3 @@
   </section>
     
 @endsection
-

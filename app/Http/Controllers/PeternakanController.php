@@ -5,6 +5,7 @@ use \App\Peternakan;
 use \App\User;
 use Auth;
 use DB;
+use \App\Prosesinvestasi;
 use \App\Pengajuaninvestasi;
 use Storage;
 use Illuminate\Http\Request;
@@ -130,8 +131,18 @@ class PeternakanController extends Controller
         // ->where('users.id','=','prosesinvestasi.id_investor')
         ->select('users.name','biouser.alamat','biouser.notelepon','prosesinvestasi.bukti')
         ->get();
+
+        $user = auth()->user()->id;
+        $id_inv = Prosesinvestasi::select('id')->where('id_peternak',$user)->first();
+        $id_proses = $id_inv->id;
+        $data2 = DB::table('laporanbulanan')
+        ->join('prosesinvestasi','prosesinvestasi.id','=','laporanbulanan.id_proses')
+        // ->where('prosesinvestasi.id','=',$id_proses)
+        ->where('laporanbulanan.id_proses',$id_proses)
+        ->select('laporanbulanan.pemasukan','laporanbulanan.keteranganpemasukan','laporanbulanan.pengeluaran','laporanbulanan.keteranganpengeluaran','laporanbulanan.keuntungan','laporanbulanan.fotobukti','laporanbulanan.created_at')
+        ->get();
         // dd($data);
-        return view('dashboard.peternak.datalaporan',compact('data','kondisi'));
+        return view('dashboard.peternak.datalaporan',compact('data','kondisi','data2'));
     }
 
     /**
